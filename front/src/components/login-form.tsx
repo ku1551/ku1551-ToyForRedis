@@ -19,19 +19,30 @@ export function LoginForm({
   
   const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const form = e.currentTarget
     const email = (form.elements.namedItem("email") as HTMLInputElement).value
     const password = (form.elements.namedItem("password") as HTMLInputElement).value
 
-    if (email === "test@example.com" && password === "1234") {
-      login("dummy-token")
+    const res = await fetch("http://localhost:8080/api/login",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({email, password})
+    })
+
+    const result = await res.json()
+
+    if(res.ok){
+      login(result.token)
       navigate("/main")
-    } else {
+    }else{
       alert("로그인 실패")
     }
+    
   }
 
 
