@@ -12,7 +12,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
-    private final String secret = "1234";
+    private final String secret = "my-super-secret-key-for-jwt-which-is-very-secure-123456";
 
     public String generateToken(String userName){
         return Jwts.builder()
