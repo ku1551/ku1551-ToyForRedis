@@ -1,7 +1,14 @@
 package com.service;
 
-import com.dto.LoginRequest;
+import java.util.Optional;
+
+import com.domain.User;
+import com.dto.UserRequest;
 
 public interface AuthService {
-    boolean checkLogin(LoginRequest loginRequest);
+    Optional<User> checkLogin(UserRequest loginRequest);
+
+    User getUserByProvider(String provider, String providerId);
+
+    User getUserByEmail(String email);
 }

@@ -14,16 +14,16 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
     private final String secret = "my-super-secret-key-for-jwt-which-is-very-secure-123456";
 
-    public String generateToken(String userName){
+    public String generateToken(String email){
         return Jwts.builder()
-                .setSubject(userName)
+                .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String extractUsername(String token){
+    public String extractEmail(String token){
         return Jwts.parserBuilder()
                 .setSigningKey(secret.getBytes())
                 .build()
